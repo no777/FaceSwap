@@ -2,6 +2,7 @@ import cv2
 import dlib
 import os, sys, argparse
 import numpy as np
+import matplotlib.pyplot as plt
 
 BLUR_FRACTION = 0.6
 BLUR_AMOUNT = 11
@@ -26,8 +27,9 @@ FACE_ALL_POINTS_IDX = list(np.arange(0, 68))
 
 def getScreenSize():
     # width, height
-    r = os.popen("xrandr  | grep \* | cut -d' ' -f4").read().strip().split('x')
-    return int(r[0]), int(r[1])
+    # r = os.popen("xrandr  | grep \* | cut -d' ' -f4").read().strip().split('x')
+    # return int(r[0]), int(r[1])
+    return (1024,768)
 
 s_w, s_h = getScreenSize()
 face_detector = dlib.get_frontal_face_detector()
@@ -273,7 +275,12 @@ if __name__ == '__main__':
             print "No faces detected."
             sys.exit()
         out = np.uint8(out_)
-        cv2.imshow("out", out)
-        cv2.moveWindow("out", (s_w - out.shape[1])/2, (s_h - out.shape[0])/2)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+
+        plt.imsave(args.output_image,out);
+    
+        # plt.imshow( out)
+        # cv2.moveWindow("out", (s_w - out.shape[1])/2, (s_h - out.shape[0])/2)
+        # cv2.waitKey(0)
+        # str = raw_input("Enter your input: ");    
+
+        # cv2.destroyAllWindows()
