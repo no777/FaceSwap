@@ -3,7 +3,7 @@ import dlib
 import os, sys, argparse
 import numpy as np
 import matplotlib.pyplot as plt
-
+import matplotlib.image as mpimg
 BLUR_FRACTION = 0.6
 BLUR_AMOUNT = 11
 
@@ -245,6 +245,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     input = cv2.imread(args.input_image)
+
+    # plt.imshow( input)
+
     shape_predictor = dlib.shape_predictor(args.predictor)
     mask_shape = None
 
@@ -276,7 +279,7 @@ if __name__ == '__main__':
             sys.exit()
         out = np.uint8(out_)
 
-        plt.imsave(args.output_image,out);
+        cv2.imwrite(args.output_image,out);
     
         # plt.imshow( out)
         # cv2.moveWindow("out", (s_w - out.shape[1])/2, (s_h - out.shape[0])/2)
